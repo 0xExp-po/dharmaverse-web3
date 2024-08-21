@@ -1,0 +1,35 @@
+{
+  "tokenStandard": "nft",
+  "number": 5,
+  "symbol": "RNFT",
+  "sellerFeeBasisPoints": 500,
+  "isMutable": true,
+  "isSequential": false,
+  "creators": [
+    {
+      "address": "GZKMpLA4FPidSJwrMBY3Q2nirtCuTiKRAY3n8yFtzzWD",
+      "share": 100
+    }
+  ],
+  "uploadMethod": "bundlr",
+  "ruleSet": null,
+  "awsConfig": null,
+  "sdriveApiKey": null,
+  "nftStorageAuthToken": null,
+  "shdwStorageAccount": null,
+  "pinataConfig": null,
+  "hiddenSettings": null,
+  "maxEditionSupply": null,
+  "guards": {
+    "default": {
+      "botTax": {
+        "value": 0.01,
+        "lastInstruction": true
+      },
+      "solPayment": {
+        "value": 0.01,
+        "destination": "GZKMpLA4FPidSJwrMBY3Q2nirtCuTiKRAY3n8yFtzzWD"
+      }
+    }
+  }
+}
