@@ -1,0 +1,25 @@
+{
+  "name": "Ring NFT #2",
+  "description": "RNFT",
+  "seller_fee_basis_points": 500,
+  "image": "1.png",
+  "properties": {
+    "files": [
+      {
+        "uri": "1.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  },
+  "attributes": [
+    {
+      "trait_type": "weight",
+      "value": "100"
+    },
+    {
+      "trait_type": "share",
+      "value": "100"
+    }
+  ]
+}
