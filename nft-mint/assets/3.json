@@ -14,11 +14,11 @@
   },
   "attributes": [
     {
-      "trait_type": "weight",
+      "trait_type": "power",
       "value": "100"
     },
     {
-      "trait_type": "share",
+      "trait_type": "sharing power",
       "value": "100"
     }
   ]
