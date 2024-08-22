@@ -1,0 +1,58 @@
+{
+  "program": {
+    "candyMachine": "9PUsRFMcDbzRA6G66AUQXcuxASmFQjo6qKgAFw9Mjfn2",
+    "candyGuard": "",
+    "candyMachineCreator": "J5sn1C5c8iMcPw3dVTNtZw636SUVEkmdETxAiduVJs66",
+    "collectionMint": "ELzURuhUpVZxgDFxVGHA6wS6PmwmJs27m6bLh8NRRMGt"
+  },
+  "items": {
+    "-1": {
+      "name": "Ring Collection",
+      "image_hash": "abdc2a91bad376067521586a563319b819b4b1f2b4007efa9f0ec4bf7432f108",
+      "image_link": "https://arweave.net/xZ6jDUyjOZyP-ReYN4nNR2iTZrSqo0I7tw0GlrymxSw?ext=png",
+      "metadata_hash": "f7a8a49ff3ee7f39f965512f9ca377d45d6035ed2195ec7002ad8dfde7697e0e",
+      "metadata_link": "https://arweave.net/2Ij_hopUSdXKW6g_XTkQBygsUke5aAp_P28jY0DqO7Q",
+      "onChain": true
+    },
+    "0": {
+      "name": "Ring NFT #1",
+      "image_hash": "a41abf4dd68c9131113de2daa4138520a003d5203fa74284cf6424ca69530e1e",
+      "image_link": "https://arweave.net/Pm6l9LOucqtKn3cqDF5HD5ygIP6pJtMRUuDtRV7iltE?ext=png",
+      "metadata_hash": "798fc24279ec4bd9c1b771e09403acf546a2d8912b36200ba90d275868d12db0",
+      "metadata_link": "https://arweave.net/sJAMwGKDkhgU8VC5S6T9gSsQ8wL3fvcyqnaqZhi7lcc",
+      "onChain": true
+    },
+    "1": {
+      "name": "Ring NFT #2",
+      "image_hash": "48251930ccfc6b64da6af6e6bb0ddb57f90b57e860787d2ff4d0faa8af6761e3",
+      "image_link": "https://arweave.net/oB4ob8p9MbsUvb7o3XV3WWDZC2Lymoywn7xL9JsQ3VE?ext=png",
+      "metadata_hash": "5ed1bc088e71f64743298efe776ccca971840addfe095759ae28a736af8e3ede",
+      "metadata_link": "https://arweave.net/1bBM9ykjahX4Ik5HS0_FuZleqxMvH1a0-PFzXoOIFh0",
+      "onChain": true
+    },
+    "2": {
+      "name": "Ring NFT #3",
+      "image_hash": "fc63f02f1dfdef8641b6922a0d0dfd8ca6c1527b9d3ac72e007d9da614f00398",
+      "image_link": "https://arweave.net/KBfwmZCyUlUjBud8YrY4oti9K3M8v7AON2BQjHdDtm0?ext=png",
+      "metadata_hash": "24b81c241da47242ee46e037ba88367c35f8e22b7f450c8299b259aed1d19e26",
+      "metadata_link": "https://arweave.net/DC4Y0Y6N3GJLaG_tkPV9NGANDpXsycvWJ2__k-NUiNA",
+      "onChain": true
+    },
+    "3": {
+      "name": "Ring NFT #4",
+      "image_hash": "1167597aa0d4406f40770e05e037ce7eaaf9e0dd27f168ab84a21a70bea0a437",
+      "image_link": "https://arweave.net/OMjImZxTQk0PwS6JT4NbWmsXLT_WYp1CgAioAejJzBQ?ext=png",
+      "metadata_hash": "ee851b799c398c7975600f1890b3f8690eceb393294494d4c78813fb2b547fe7",
+      "metadata_link": "https://arweave.net/UreD9a-A-BVBDY4tHaCADFttmRNwGPS4s__0KTfdIcU",
+      "onChain": true
+    },
+    "4": {
+      "name": "Ring NFT #5",
+      "image_hash": "987a3518fe8020c23c19185a648a6876798c9b768b3d619fde2addf0c663ed35",
+      "image_link": "https://arweave.net/kCZe4fqmXjWWQfwpZyTkUZGeI-QZFRJlmhN3Y-PkuQ4?ext=png",
+      "metadata_hash": "c54c567e378eddf5ea77d61af15f7f92e4ff888afee80b55312810a192d48c34",
+      "metadata_link": "https://arweave.net/_dEJr5vRUR_AWb36nOIN4s8dDjKAlYpR7dkqO20SDHQ",
+      "onChain": true
+    }
+  }
+}

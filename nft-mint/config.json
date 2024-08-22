@@ -7,7 +7,7 @@
   "isSequential": false,
   "creators": [
     {
-      "address": "GZKMpLA4FPidSJwrMBY3Q2nirtCuTiKRAY3n8yFtzzWD",
+      "address": "BRPKGGcJeDwpg3ToBc382jAC8YhCzr321DJx3raRJ6Y5",
       "share": 100
     }
   ],
@@ -28,7 +28,7 @@
       },
       "solPayment": {
         "value": 0.01,
-        "destination": "GZKMpLA4FPidSJwrMBY3Q2nirtCuTiKRAY3n8yFtzzWD"
+        "destination": "BRPKGGcJeDwpg3ToBc382jAC8YhCzr321DJx3raRJ6Y5"
       }
     }
   }
