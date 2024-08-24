@@ -61,9 +61,7 @@ export function useGetTokenMetadata({ address }: { address: PublicKey }) {
   const query = useGetTokenAccounts({ address });
 
   return useQuery({
-    queryKey: [
-      'get-token-metadata'
-    ],
+    queryKey: ['get-token-metadata', address.toString()],
     queryFn: async () => {
       const nftAccounts = query.data?.filter(({ account }) => {
         const accountData = account.data as ParsedAccountData;
@@ -71,7 +69,7 @@ export function useGetTokenMetadata({ address }: { address: PublicKey }) {
         return amount === 1;
       });
 
-      if (nftAccounts !== undefined) {
+      if (nftAccounts && nftAccounts.length > 0) {
         const RingNFTs = await Promise.all(
           nftAccounts.map(async (account) => {
             try {
@@ -80,30 +78,41 @@ export function useGetTokenMetadata({ address }: { address: PublicKey }) {
 
               // Check if the metadata's collection key matches the target key
               if (metadata.collection?.key.toString() === '6rVA4ZM6WcNZRsicBv623ixAh1cZxqFDikrpZ4x3aVey') {
-                return { metadata, address};
+                return { metadata, address };
               }
             } catch (error) {
               console.error('Error fetching metadata for account:', account, error);
+              return null; // Return null in case of error
             }
-          }));
-
-        const metadata = await Promise.all(
-          RingNFTs.filter(metadata => metadata !== null).map(async (nft) => {
-            const response = await fetch(nft!.metadata.data.uri.toString());
-            const mint_address = nft!.address;
-            // Check if the request was successful
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const metadata = await response.json(); // Parse the JSON data
-            return { metadata, mint_address};
           })
-        )
+        );
 
-        return metadata
-      };
+        const validNFTs = RingNFTs.filter(nft => nft !== null);
+
+        if (validNFTs.length > 0) {
+          const metadata = await Promise.all(
+            validNFTs.map(async (nft) => {
+              try {
+                const response = await fetch(nft!.metadata.data.uri.toString());
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const metadataJson = await response.json();
+                return { metadata: metadataJson, mint_address: nft!.address };
+              } catch (error) {
+                console.error('Error fetching off-chain metadata:', error);
+                return null; // Return null in case of error
+              }
+            })
+          );
+
+          return metadata.filter(item => item !== null); // Filter out nulls
+        }
+      }
+
+      return []; // Return an empty array if no NFTs or metadata were found
     },
+    initialData: [], // Provide initial data to avoid undefined issues
   });
 }
 
