@@ -5,6 +5,7 @@ import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import {
   Connection,
   LAMPORTS_PER_SOL,
+  ParsedAccountData,
   PublicKey,
   SystemProgram,
   TransactionMessage,
@@ -14,6 +15,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTransactionToast } from '../ui/ui-layout';
+import { getMetadata } from './account-metadata-access';
 
 export function useGetBalance({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
@@ -54,6 +56,57 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
     },
   });
 }
+
+export function useGetTokenMetadata({ address }: { address: PublicKey }) {
+  const query = useGetTokenAccounts({ address });
+
+  return useQuery({
+    queryKey: [
+      'get-token-metadata'
+    ],
+    queryFn: async () => {
+      const nftAccounts = query.data?.filter(({ account }) => {
+        const accountData = account.data as ParsedAccountData;
+        const amount = accountData.parsed.info.tokenAmount.uiAmount;
+        return amount === 1;
+      });
+
+      if (nftAccounts !== undefined) {
+        const RingNFTs = await Promise.all(
+          nftAccounts.map(async (account) => {
+            try {
+              const address = new PublicKey(account.account.data.parsed.info.mint);
+              const metadata = await getMetadata({ address });
+
+              // Check if the metadata's collection key matches the target key
+              if (metadata.collection?.key.toString() === '6rVA4ZM6WcNZRsicBv623ixAh1cZxqFDikrpZ4x3aVey') {
+                return { metadata, address};
+              }
+            } catch (error) {
+              console.error('Error fetching metadata for account:', account, error);
+            }
+          }));
+
+        const metadata = await Promise.all(
+          RingNFTs.filter(metadata => metadata !== null).map(async (nft) => {
+            const response = await fetch(nft!.metadata.data.uri.toString());
+            const mint_address = nft!.address;
+            // Check if the request was successful
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const metadata = await response.json(); // Parse the JSON data
+            return { metadata, mint_address};
+          })
+        )
+
+        return metadata
+      };
+    },
+  });
+}
+
 
 export function useTransferSol({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
@@ -198,3 +251,4 @@ async function createTransaction({
     latestBlockhash,
   };
 }
+

@@ -1,10 +1,10 @@
 'use client';
 
 import { useWallet } from '@solana/wallet-adapter-react';
-import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import { LAMPORTS_PER_SOL, ParsedAccountData, PublicKey } from '@solana/web3.js';
 import { IconRefresh } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AppModal, ellipsify } from '../ui/ui-layout';
 import { useCluster } from '../cluster/cluster-data-access';
 import { ExplorerLink } from '../cluster/cluster-ui';
@@ -12,9 +12,12 @@ import {
   useGetBalance,
   useGetSignatures,
   useGetTokenAccounts,
+  useGetTokenMetadata,
   useRequestAirdrop,
   useTransferSol,
 } from './account-data-access';
+import { getMetadata } from './account-metadata-access';
+import { Card } from '../card/card-ui';
 
 export function AccountBalance({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address });
@@ -118,15 +121,27 @@ export function AccountButtons({ address }: { address: PublicKey }) {
 
 export function AccountTokens({ address }: { address: PublicKey }) {
   const [showAll, setShowAll] = useState(false);
-  const query = useGetTokenAccounts({ address });
+  const query = useGetTokenMetadata({ address });
   const client = useQueryClient();
+
   const items = useMemo(() => {
+    query.data?.sort((a, b) => {
+      if (a.metadata.name < b.metadata.name) {
+          return -1;
+      }
+      if (a.metadata.name > b.metadata.name) {
+          return 1;
+      }
+      return 0;
+  })
     if (showAll) return query.data;
     return query.data?.slice(0, 5);
   }, [query.data, showAll]);
 
+  console.log(items);
+
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 w-[80%] mx-auto">
       <div className="justify-between">
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold">Token Accounts</h2>
@@ -142,6 +157,7 @@ export function AccountTokens({ address }: { address: PublicKey }) {
                     queryKey: ['getTokenAccountBalance'],
                   });
                 }}
+
               >
                 <IconRefresh size={16} />
               </button>
@@ -149,7 +165,22 @@ export function AccountTokens({ address }: { address: PublicKey }) {
           </div>
         </div>
       </div>
-      {query.isError && (
+      {query.isSuccess && (
+        <div>
+          {query.data!.length === 0 ? (
+            <div>No token accounts found.</div>
+          ) : (
+            <div className='flex gap-2 w-full flex-wrap'>
+              {items?.map((item, index) => (
+                <Card index={index} name={item.metadata.name} description={item.metadata.description} address={item.mint_address.toString()}
+                image={item.metadata.image} power={item.metadata.attributes[0].value} sharing_power={item.metadata.attributes[1].value} />
+              ))}
+            </div>
+          )}
+        </div>
+
+      )}
+      {/* {query.isError && (
         <pre className="alert alert-error">
           Error: {query.error?.message.toString()}
         </pre>
@@ -214,7 +245,7 @@ export function AccountTokens({ address }: { address: PublicKey }) {
             </table>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 }
