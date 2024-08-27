@@ -77,7 +77,7 @@ At the end of the execution of the launch command, a Candy Machine will be deplo
 You can use the mint command to mint an NFT:
 
 ```bash
-$ sugar mint
+$ sugar mint -n 5 --receiver <YOUR WALLET ADDRESS>
 ```
 
 When all NFTs have been minted, you can close your Candy Machine and reclaim the account rent:
