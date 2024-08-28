@@ -5,7 +5,7 @@ use anchor_lang::prelude::*;
 pub struct NFTDATA {
     pub mint_address: Pubkey,
     pub updated_date: i64,
-    pub reward_amount: u64,
+    pub interest: u64,
 }
 
 impl NFTDATA {
