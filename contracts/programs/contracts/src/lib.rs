@@ -1,7 +1,8 @@
 use anchor_lang::prelude::*;
 
-declare_id!("7GgbXgyxz1BXDEHFmRt91c8Pr3pTpZm21fKjQPWw6zAT");
+declare_id!("6k3zHEgbU4MwBjUKbLaDEwEo2bTNSWrn5wuWPYfyUjqH");
 
+mod state;
 #[program]
 pub mod contracts {
     use super::*;
