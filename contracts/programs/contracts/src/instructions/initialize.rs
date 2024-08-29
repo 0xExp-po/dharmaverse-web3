@@ -9,7 +9,7 @@ pub fn initialize(ctx: Context<Initialize>, nfts: Vec<Pubkey>) -> Result<()> {
     nft_list.nfts = nfts.iter().map(|nft| NFTDATA {
         mint_address: *nft,
         updated_date: ctx.accounts.clock.unix_timestamp,
-        interest: INTEREST_PER_NFT,
+        reward: INTEREST_PER_NFT,
     }).collect();
 
     Ok(())
