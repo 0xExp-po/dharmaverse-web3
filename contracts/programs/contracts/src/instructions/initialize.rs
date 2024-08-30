@@ -1,4 +1,8 @@
 use anchor_lang::prelude::*;
+use anchor_spl::associated_token::AssociatedToken;
+use anchor_spl::token::Mint;
+use anchor_spl::token::Token;
+use anchor_spl::token::TokenAccount;
 use crate::state::*;
 use crate::constants::*;
 
@@ -30,6 +34,19 @@ pub struct Initialize<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
+    pub reward: Box<Account<'info, Mint>>,
+
+    #[account(
+        init_if_needed,
+        payer = payer,
+        associated_token::mint = reward,
+        associated_token::authority = payer,
+    )]
+    pub contract_reward_account: Box<Account<'info, TokenAccount>>,
+
+    /// Solana ecosystem accounts
+    pub token_program: Program<'info, Token>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
     pub system_program: Program<'info, System>,
     pub rent: Sysvar<'info, Rent>,
     pub clock: Sysvar<'info, Clock>,
